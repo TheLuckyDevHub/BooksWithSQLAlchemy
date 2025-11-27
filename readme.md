@@ -1,4 +1,4 @@
-# BookAlchemy
+# BooksWithSQLAlchemy
 
 BookAlchemy is a simple web application for managing a library of books and authors. It is built with Python, Flask, and SQLAlchemy.
 
@@ -25,4 +25,4 @@ BookAlchemy is a simple web application for managing a library of books and auth
    python app.py
    ```
 
-The application will be available at `http://127.0.0.1:5000`.
+The application will be available at `http://127.0.0.1:5002`.
