@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Listing</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
+    <style>
+        /* Table Styles */
+        .book-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .book-table th, .book-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* Table Header (professional look) */
+        .book-table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sortable-header {
+            /* Flexbox verwenden, um Text und ggf. Icons auszurichten */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sortable-link {
+            color: inherit; /* Farbe vom Header erben (weiß) */
+            text-decoration: none; /* Unterstreichung entfernen */
+            display: block;
+            width: 100%; /* Link füllt die gesamte Zelle */
+            padding: 0; /* Padding wird von th gesetzt */
+            cursor: pointer;
+        }
+
+        .sortable-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Fügt einen dezenten Pfeil hinzu, wenn ein Sortierfeld aktiv ist (optional, aber empfohlen) */
+        .sort-indicator {
+            font-size: 0.8em;
+            margin-left: 5px;
+            /* Placeholder für Pfeil-Icons. In einem echten Setup würden Sie hier Font Awesome o.Ä. verwenden. */
+        }
+        
+        /* Stripe effect for rows */
+        .book-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Hover effect */
+        .book-table tr:hover {
+            background-color: #e2f2ff;
+            cursor: default;
+        }
+
+        /* Style for empty list message */
+        .empty-list {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        input[type="text"], 
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Stellt sicher, dass Padding die Gesamtbreite nicht verändert */
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #1a5e9f;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0d4a7c; /* Dunklere Farbe beim Hover */
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📚 Book Catalog</h1>
+
+        <table class="book-table">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>
+                        <a href="?sort_by=title" class="sortable-link">
+                            <span class="sortable-header">Title</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort_by=author" class="sortable-link">
+                            <span class="sortable-header">Author</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sort_by=year" class="sortable-link">
+                            <span class="sortable-header">Publication Year</span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book, author in books_with_authors %}
+                <tr>
+                    <td>
+                        <div class="book" data-isbn='{{ book.isbn }}'>
+                            <img class="thumbnail" src="" width="30%" height="30%" alt="Cover is loading..." loading="lazy"/>  
+                        </div>                        
+                    </td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ author.name }}</td>
+                    <td>{{ book.publication_year }}</td> 
+                    <td>
+                        <div>
+                            <form method="POST" action="{{ url_for('delete', book_id=book['id']) }}">
+                                <button type="submit">Delete book</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                {% if not books_with_authors %}
+                <tr>
+                    <td colspan="3" class="empty-list">
+                        No books are currently available in the catalog.
+                    </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+        <form action="/" method="POST">
+            <label for="title">Book title to search:</label> 
+            <input type="text" id="title" name="title" required><br><br>
+            <input type="submit" value="Search Book title"> 
+        </form>
+        <div class="navigation-links">
+            <a href="/">Home</a>
+            <a href="/add_author">Add new author</a>
+            <a href="/add_book">Add new book</a>
+        </div>
+
+    </div>
+
+        <script type="text/javascript" src="{{url_for('static', filename='book_cover_form_google_api.js')}}"></script>
+    </body>
+</html>

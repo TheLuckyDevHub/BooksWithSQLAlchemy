@@ -1,0 +1,51 @@
+    /* General Styles */
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #e9ecef;
+        color: #343a40;
+    }
+
+    /* Container for structure */
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading */
+    h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+    }
+
+        /* Style for navigation links */
+    .navigation-links {
+        margin-top: 25px;
+        text-align: center;
+        padding-top: 15px;
+        border-top: 1px dashed #ccc;
+    }
+
+    .navigation-links a {
+        color: #1a5e9f;
+        text-decoration: none;
+        padding: 8px 15px;
+        margin: 0 10px;
+        border: 1px solid #1a5e9f;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navigation-links a:hover {
+        background-color: #1a5e9f;
+        color: white;
+    }   
+
