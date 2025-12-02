@@ -103,6 +103,19 @@
             background-color: #0d4a7c; /* Dunklere Farbe beim Hover */
         }
 
+        .btn_delete {
+            background-color: #1a5e9f;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -130,6 +143,7 @@
                             <span class="sortable-header">Publication Year</span>
                         </a>
                     </th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -146,7 +160,7 @@
                     <td>
                         <div>
                             <form method="POST" action="{{ url_for('delete', book_id=book['id']) }}">
-                                <button type="submit">Delete book</button>
+                                <button class='btn_delete' type="submit">Delete book</button>
                             </form>
                         </div>
                     </td>

@@ -55,10 +55,16 @@ class Book(db.Model):
     __tablename__ = "books"
 
     id: int = db.Column(db.Integer, primary_key=True)
-    isbn = db.Column(db.String(13), nullable=False)
+    isbn = db.Column(db.String(13), nullable=False, unique=True)
     title = db.Column(db.String(100), nullable=False)
     publication_year = db.Column(db.String, nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), nullable=False)
+
+    # The ORM relationship
+    # Relationship: Creates the 'author' attribute (author_id) and the 'books'
+    # list on the User model (backref='movies').
+    user = db.relationship('Author', backref = f'{Author.__tablename__}', lazy=True)
+
 
     def __repr__(self):
         """
